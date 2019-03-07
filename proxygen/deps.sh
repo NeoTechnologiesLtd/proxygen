@@ -27,7 +27,7 @@ set -e
 start_dir=$(pwd)
 trap 'cd $start_dir' EXIT
 
-folly_rev=$(sed 's/Subproject commit //' "$start_dir"/../build/deps/github_hashes/facebook/folly-rev.txt)
+# folly_rev=$(sed 's/Subproject commit //' "$start_dir"/../build/deps/github_hashes/facebook/folly-rev.txt)
 wangle_rev=$(sed 's/Subproject commit //' "$start_dir"/../build/deps/github_hashes/facebook/wangle-rev.txt)
 
 # Must execute from the directory containing this script
@@ -51,7 +51,6 @@ sudo apt-get install -yq \
     libevent-dev \
     libtool \
     libboost-all-dev \
-    libjemalloc-dev \
     libsnappy-dev \
     wget \
     unzip \
@@ -110,12 +109,13 @@ fi
 
 # Get folly
 if [ ! -e folly/folly ]; then
-    echo "Cloning folly"
-    git clone https://github.com/facebook/folly
+    echo "Cloning folly (interceptor branch)"
+    git clone https://github.com/NeoTechnologiesLtd/folly
 fi
 cd folly
 git fetch
-git checkout "$folly_rev"
+# git checkout "$folly_rev"
+git checkout interceptor
 
 # Build folly
 mkdir -p _build
