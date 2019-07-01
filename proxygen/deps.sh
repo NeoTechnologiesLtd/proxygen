@@ -27,7 +27,7 @@ set -e
 start_dir=$(pwd)
 trap 'cd $start_dir' EXIT
 
-# folly_rev=$(sed 's/Subproject commit //' "$start_dir"/../build/deps/github_hashes/facebook/folly-rev.txt)
+folly_rev=$(sed 's/Subproject commit //' "$start_dir"/../build/deps/github_hashes/facebook/folly-rev.txt)
 wangle_rev=$(sed 's/Subproject commit //' "$start_dir"/../build/deps/github_hashes/facebook/wangle-rev.txt)
 
 # Must execute from the directory containing this script
@@ -114,8 +114,8 @@ if [ ! -e folly/folly ]; then
 fi
 cd folly
 git fetch
-# git checkout "$folly_rev"
-git checkout interceptor
+git checkout "$folly_rev"
+# git checkout interceptor
 
 # Build folly
 mkdir -p _build
